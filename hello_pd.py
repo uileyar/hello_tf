@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-# print(pd.__version__)
+print(pd.__version__, np.__version__)
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
     print('{}\n{}\n'.format(type(cities['City name']), cities['City name']))
     print('{}\n{}\n'.format(type(cities['City name'][1]), cities['City name'][1]))
     print('{}\n{}\n'.format(type(cities[0:2]), cities[0:2]))
-    print('{}\n'.format(population/1000))
+    print('{}\n'.format(population / 1000))
     print('{}\n'.format(np.log(population)))
     print('{}\n'.format(population.apply(lambda val: val > 1000000)))
     cities['dkk'] = (cities['Area square miles'] > 50) & cities['City name'].apply(lambda name: name.startswith('San'))

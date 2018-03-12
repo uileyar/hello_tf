@@ -8,8 +8,8 @@ import numpy as np
 import sklearn.metrics as metrics
 import tensorflow as tf
 from tensorflow.python.data import Dataset
-# print(pd.__version__)
 import scipy
+
 
 def my_input_fn(features, targets, batch_size=1, shuffle=True, num_epochs=None):
     """Trains a linear regression model of one feature.
@@ -143,7 +143,7 @@ def main():
     california_housing_dataframe = california_housing_dataframe.reindex(np.random.permutation(california_housing_dataframe.index))
     california_housing_dataframe["median_house_value"] /= 1000.0
     california_housing_dataframe["rooms_per_person"] = california_housing_dataframe["total_rooms"]/california_housing_dataframe["population"]
-    calibration_data = train_model(california_housing_dataframe, learning_rate=0.00005, steps=500, batch_size=5, input_feature="rooms_per_person")
+    calibration_data = train_model(california_housing_dataframe, learning_rate=0.005, steps=500, batch_size=5, input_feature="rooms_per_person")
 
 
 if __name__ == '__main__':
