@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import math
 from IPython import display
 from matplotlib import cm
@@ -8,7 +10,6 @@ import numpy as np
 import sklearn.metrics as metrics
 import tensorflow as tf
 from tensorflow.python.data import Dataset
-import scipy
 
 
 def my_input_fn(features, targets, batch_size=1, shuffle=True, num_epochs=None):
@@ -139,11 +140,24 @@ def train_model(california_housing_dataframe, learning_rate, steps, batch_size, 
 
 def main():
     tf.logging.set_verbosity(tf.logging.ERROR)
+    pd.options.display.max_rows = 10
+    pd.options.display.float_format = '{:.1f}'.format
     california_housing_dataframe = pd.read_csv("./california_housing_train.csv", sep=",")
     california_housing_dataframe = california_housing_dataframe.reindex(np.random.permutation(california_housing_dataframe.index))
     california_housing_dataframe["median_house_value"] /= 1000.0
+
     california_housing_dataframe["rooms_per_person"] = california_housing_dataframe["total_rooms"]/california_housing_dataframe["population"]
     calibration_data = train_model(california_housing_dataframe, learning_rate=0.005, steps=500, batch_size=5, input_feature="rooms_per_person")
+    plt.figure(figsize=(15, 6))
+    plt.subplot(1, 2, 1)
+    plt.scatter(calibration_data["predictions"], calibration_data["targets"])
+    plt.subplot(1, 2, 2)
+    _ = california_housing_dataframe["rooms_per_person"].hist()
+
+    california_housing_dataframe["rooms_per_person"] = (california_housing_dataframe["rooms_per_person"]).apply(lambda x: min(x, 5))
+    _ = california_housing_dataframe["rooms_per_person"].hist()
+    calibration_data = train_model(california_housing_dataframe, learning_rate=0.005, steps=500, batch_size=5, input_feature="rooms_per_person")
+    plt.scatter(calibration_data["predictions"], calibration_data["targets"])
 
 
 if __name__ == '__main__':
