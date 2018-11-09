@@ -24,6 +24,10 @@ tmtagsHistory
 
 apk
 nohup.out
-loadtest
-test/*
 *.mmdb
+
+.ipynb_checkpoints
+*.csv
+*.xlsx
+data
+
