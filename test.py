@@ -14,7 +14,7 @@ def test1():
                         '%dk-%dk' % (random.randint(2, 10), random.randint(10, 20)), 'tt') for _ in range(10000)),
                       columns=['publish_time', 'classf', 'salary', 'title'])
     df.head()
-    dd = df.groupby(['publish_time', 'classf', 'salary']).count()['title'].groupby(level=0, group_keys=False).nlargest(10)
+    dd = df.groupby(['publish_time', 'classf', 'salary']).count()['title'].groupby(level=['publish_time', 'classf'], group_keys=False).nlargest(10)
     print(dd)
 
 
