@@ -25,8 +25,20 @@ def test2():
     print(interval, m_cache_expire_time - interval)
 
 
+def test3():
+    buf = "2425__10404|2425__10312"
+    buf = ''
+    black_pubs = []
+
+    for v in buf.split('|'):
+        vv = v.split('__')
+        if len(vv) >=2:
+            black_pubs.append(vv[1])
+    black_pubs = ','.join(black_pubs)
+    print(black_pubs)
+
 def main():
-    test1()
+    test3()
 
 if __name__ == '__main__':
     main()
